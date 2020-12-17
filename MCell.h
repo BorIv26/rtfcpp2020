@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef LAB_8_MCELL_H
-#define LAB_8_MCELL_H
+#ifndef LAB_9_MCELL_H
+#define LAB_9_MCELL_H
 
 class MCell
 {
@@ -14,4 +14,4 @@ private:
 	friend class Maze;
 };
 
-#endif LAB_8_MCELL_H
+#endif LAB_9_MCELL_H

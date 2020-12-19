@@ -5,7 +5,28 @@ using namespace std;
 
 int main()
 {
+	int height = 5;
+	int width = 5;
 	int size = 5;
+	Maze* maze = new Maze(height, width);
+	for (int counter = 0; counter < height; counter++)
+	{
+		int i = counter;
+		int j = counter;
+		maze->makeConnection(i, j + 1, i + 1, j + 1);
+		while (i <height-1)
+		{
+			maze->makeConnection(i, j, i+1, j);			
+			i++;
+		}
+		j = counter;
+		i = counter;
+		while (j < width-1 )
+		{
+			maze->makeConnection(i, j, i, j+1);
+			j++;
+		}
+	}
 	int** nodesWeight;
 	nodesWeight = new int* [size];
 	for (int i = 0; i < size; i++)
@@ -14,7 +35,6 @@ int main()
 	}
 	nodesWeight[0][0] = 0;
 	MTreeNode* beginNode = MTreeNode::beginTree(0, 0);
-	Maze* maze = new Maze(size, size);
 	MTreeNode* nextNode = beginNode;
 	MTreeNode* nodeToCopy = nextNode;
 	bool ableToAddChild;
@@ -41,35 +61,6 @@ int main()
 		nextNode = nodeToCopy;
 	}	
 	nextNode = beginNode;
-	for (int counter = 0; counter < size; counter++)
-	{
-		int i = nextNode->i()+1;
-		int j = nextNode->j();
-		nodeToCopy = nextNode;		
-		MTreeNode* child = nodeToCopy->hasChild(i, j);
-		while (child != nullptr)
-		{
-			ableToAddChild = maze->makeConnection(i - 1, j, i, j);
-			i++;
-			nodeToCopy = child;			
-			child = nodeToCopy->hasChild(i, j);
-		}
-		i = counter + 1;
-		nodeToCopy = nextNode;
-		child = nodeToCopy->hasChild(counter, i);
-		if (counter < size - 1)
-		{
-			nextNode = child->hasChild(counter + 1, counter + 1);
-			ableToAddChild = maze->makeConnection(counter, i, i, i);
-		}
-		while (child != nullptr)
-		{
-			ableToAddChild = maze->makeConnection(j, i - 1, j, i);
-			i++;
-			nodeToCopy = child;			
-			child = nodeToCopy->hasChild(counter, i);
-		}
-	}
 	maze->printMaze();	
 	nextNode = beginNode;
 	nodeToCopy = nextNode;
